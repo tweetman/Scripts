@@ -6,7 +6,7 @@ use warnings;
 use List::Util qw(sum);
 use POSIX;
 use List::Util 'first';
-
+no warnings 'experimental::smartmatch';
 
 my $score_file = "newscore.sc";
 my $inputa;
@@ -62,7 +62,7 @@ sub mean {
 sub  trim { my $s = shift; $s =~ s/^\s+|\s+$//g; return $s };
 
 if ($average_num == 1) {
-    say "The $average_num lowest energy structure are used for calculation of the summary.";
+    say "The lowest energy structure are used for calculation of the summary.";
 } else {
     say "The $average_num structures with the lowest energies are averaged and used for calculation of the summary.";
 }
@@ -85,6 +85,7 @@ close $inputa;
 @sorted_mutants = grep {s/(^|\D)0+(\d)/$1$2/g,1} sort
      grep {s/(\d+)/sprintf"%06.6d",$1/ge,1} @mutants;
 $fa = $#sorted_mutants;
+
 
 #Creates an array with all the mutated residues (format: "B30")
 $bb = 0;
@@ -253,10 +254,10 @@ say "The summarized results are saved in results.csv!";
 #print join(', ',@sorted_mutants);
 #print $fb;
 #print "\n";
-$bb = 0;
-while ($bb <= $fa) {
-    print $sorted_mutants2[$bb].", ".$average_elem[$bb]."\n";
-    $bb = $bb + 1;
-}
+#$bb = 0;
+#while ($bb <= $fa) {
+#    print $sorted_mutants2[$bb].", ".$average_elem[$bb]."\n";
+#    $bb = $bb + 1;
+#}
 
 #print join(', ',@wt_com);
