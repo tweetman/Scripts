@@ -1,0 +1,26 @@
+Interesting options in Rosetta
+
+-extrachi_cutoff <Integer>
+number of neighbors a residue must have before extra rotamers are used.
+Default: 18
+
+-ex1 <Boolean>
+use extra chi1 sub-rotamers for all residues that pass the extrachi_cutoff
+
+-ex2 <Boolean>
+use extra chi2 sub-rotamers for all residues that pass the extrachi_cutoff
+
+-use_input_sc <Boolean>
+Use rotamers from input structure in packing By default, input sidechain coords are NOT included in rotamer set but are discarded before the initial pack; with this flag, the the input rotamers will NOT be discarded. Note that once the starting rotamers are replaced by any mechanism, they are no longer included in the rotamer set (rotamers included by coordinates)
+
+-nstruct <Integer>
+Number of times to process each input PDB
+Default: 1
+
+-ignore_unrecognized_res <Boolean>
+Do not abort if unknown residues are found in PDB file; instead, ignore them. Note this implies -in:ignore_waters
+Default: false
+
+-overwrite <Boolean>
+Ignore 'CHECKPOINT' file and the overwrite the PDB file(s)
+

@@ -59,7 +59,7 @@ my @ba;
 sub mean {
     return sum(@_)/@_;
 }
-sub  trim { my $s = shift; $s =~ s/^\s+|\s+$//g; return $s };
+sub trim { my $s = shift; $s =~ s/^\s+|\s+$//g; return $s };
 
 if ($average_num == 1) {
     say "The lowest energy structure are used for calculation of the summary.";
@@ -98,7 +98,6 @@ while ($bb <= $fa) {
     $bb = $bb+ 1;
 }
 $fb = $#resid;
-
 #Creates an array with all the wildtype residues
 @dota = split('_',$sorted_mutants[0]); 
 @ac = splice @dota, -3, 3;
@@ -107,20 +106,24 @@ open $inputc,'<',join('_',$pdbwt_file) or die "can't open file: $!";
 @pdbfile = <$inputc>;
 close $inputc;
 $cd = 0;
+$bb = 0;
 while ($cd <= $#pdbfile) {
-      $dotb[0] = trim(substr $pdbfile[$cd], 17, 3);
-      $dotb[1] = trim(substr $pdbfile[$cd], 21, 1);
-      $dotb[2] = trim(substr $pdbfile[$cd], 22, 4);
-      $pdbfile2[$cd] = join(" ",@dotb);
+      $cc = substr $pdbfile[$cd], 0, 4;
+      if ($cc eq 'ATOM') {
+         $dotb[0] = trim(substr $pdbfile[$cd], 17, 3);
+         $dotb[1] = trim(substr $pdbfile[$cd], 21, 1);
+         $dotb[2] = trim(substr $pdbfile[$cd], 22, 4);
+         $pdbfile2[$bb] = join(" ",@dotb);
+         $bb = $bb + 1; 
+      }
       $cd = $cd + 1;
 }
+
 $cd = 0;
 while ($cd <= $fb) {
       $fc = (substr $resid[$cd], 0, 1)." ".(substr $resid[$cd], 1);
       $firsta = first { /$fc/ } @pdbfile2;
       @firstb = split (" ",$firsta);
-      #print join (',',@firstb);
-      #print "\n";
       push @reswt, $firstb[0];
       $cd = $cd + 1;
 }

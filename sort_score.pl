@@ -3,6 +3,7 @@
 use 5.10.0;
 use strict;
 use warnings;
+no warnings 'experimental::smartmatch';
 
 my $score_file = "newscore.sc";
 my $inputa;
