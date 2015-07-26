@@ -10,6 +10,7 @@ fi
 
 (head -n 2 score.sc && tail -n +3 score.sc | sort -k2 -nr) > newscore.sc
 
+perl renaming.pl
 perl sort_score.pl
 perl sum_score.pl $f
 rm -rf newscore.sc
